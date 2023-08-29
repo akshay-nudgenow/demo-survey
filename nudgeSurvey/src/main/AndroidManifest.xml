@@ -1,4 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application>
+        <activity
+            android:name=".ui.MoodBoardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BottomSheetActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PopupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NudgeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".widgets.CheckBoxWidget"
+            android:exported="false" />
+        <activity
+            android:name=".screens.StartScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.FormPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.MidScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screens.EndScreenActivity"
+            android:exported="false" />
+    </application>
+
 </manifest>

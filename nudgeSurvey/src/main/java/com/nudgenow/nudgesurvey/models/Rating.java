@@ -71,7 +71,6 @@ public class Rating {
     }
 
     public static class AttachmentType {
-        // Define fields for AttachmentType here
-        // You can create a similar AttachmentType class
+
     }
 }

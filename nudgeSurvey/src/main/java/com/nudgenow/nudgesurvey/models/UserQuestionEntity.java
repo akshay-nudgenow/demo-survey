@@ -48,34 +48,22 @@ public class UserQuestionEntity {
     }
 
     public Map<String, Object> toMap() {
-        // Implement this method to convert the object to a map
-        // Similar to the Dart code
-        // ...
-        // Return a map with the appropriate key-value pairs
-        return null; // Replace this with your implementation
+
+        return null;
     }
 
     public static UserQuestionEntity fromMap(Map<String, Object> map) {
-        // Implement this method to create an object from a map
-        // Similar to the Dart code
-        // ...
-        // Return a UserQuestionEntity object
-        return null; // Replace this with your implementation
+
+        return null;
     }
 
     public String toJson() {
-        // Implement this method to convert the object to JSON
-        // Similar to the Dart code
-        // ...
-        // Return a JSON representation of the object
-        return null; // Replace this with your implementation
+
+        return null;
     }
 
     public static UserQuestionEntity fromJson(String source) {
-        // Implement this method to create an object from JSON
-        // Similar to the Dart code
-        // ...
-        // Return a UserQuestionEntity object
-        return null; // Replace this with your implementation
+
+        return null;
     }
 }

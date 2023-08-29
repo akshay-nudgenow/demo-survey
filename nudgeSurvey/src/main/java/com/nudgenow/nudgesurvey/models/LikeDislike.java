@@ -46,6 +46,6 @@ public class LikeDislike {
     }
 
     public static class AttachmentType {
-        // Define the AttachmentType class here, similar to the Dart implementation
+
     }
 }

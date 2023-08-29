@@ -2,6 +2,8 @@ package com.nudgenow.nudgesurvey.models;
 
 import java.util.List;
 
+import java.util.List;
+
 public class CheckBox {
     private String questionType;
     private String question;
@@ -70,15 +72,8 @@ public class CheckBox {
         this.attachments = attachments;
     }
 
-    @Override
-    public String toString() {
-        return "CheckBox{" +
-                "questionType='" + questionType + '\'' +
-                ", question='" + question + '\'' +
-                ", description='" + description + '\'' +
-                ", options=" + options +
-                ", sId='" + sId + '\'' +
-                ", attachments=" + attachments +
-                '}';
+    public static class AttachmentType {
+        // Define the AttachmentType class here
+        // if it hasn't been defined already in your code
     }
 }

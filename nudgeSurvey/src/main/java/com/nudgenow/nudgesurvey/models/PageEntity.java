@@ -46,24 +46,22 @@ public class PageEntity {
     }
 
     public Map<String, Object> toMap() {
-        // Implement the conversion to a Map<String, Object> here
-        // You can use Gson or other methods to perform serialization
+
         return null;
     }
 
     public static PageEntity fromMap(Map<String, Object> map) {
-        // Implement the conversion from a Map<String, Object> here
-        // You can use Gson or other methods to perform deserialization
+
         return null;
     }
 
     public String toJson() {
-        // Implement JSON serialization here
+
         return null;
     }
 
     public static PageEntity fromJson(String source) {
-        // Implement JSON deserialization here
+
         return null;
     }
 }
