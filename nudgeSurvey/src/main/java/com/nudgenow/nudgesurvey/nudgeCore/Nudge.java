@@ -9,22 +9,25 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
 public class Nudge {
     private String apiKey;
-    private String token = "UNITIALIZED";
-    private String nudgeUrl = "https://pointsystem.api.nudgenow.com/api/v1";
+    private static String token = "UNITIALIZED";
+    private static String nudgeUrl = "https://staging.api.nudgenow.com/api/v1/";
     private CallbackInterface trackcall;
-    private UUID uuid = UUID.randomUUID();
+    private static UUID uuid = UUID.randomUUID();
 
     private Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(nudgeUrl)
@@ -40,52 +43,100 @@ public class Nudge {
         this.apiKey = apiKey;
     }
 
-    public Response<User> initSession(User user, String externalId, Map<String, Object> properties) {
+    public String initSession(String externalId, JSONObject properties) {
+
         JSONObject requestBody = new JSONObject();
         try {
-            requestBody.put("externalId", externalId);
-            if (properties != null) {
-                for (Map.Entry<String, Object> entry : properties.entrySet()) {
-                    requestBody.put(entry.getKey(), entry.getValue());
+            try {
+                requestBody.put("externalId", externalId);
+                requestBody.put("sessionId", uuid.toString());
+
+                if (properties != null) {
+                    for (Iterator<String> it = properties.keys(); it.hasNext(); ) {
+                        String entry = it.next();
+                        requestBody.put(entry, properties.get(entry));
+                    }
                 }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestBody.toString());
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
 
-        Call<User> call = apiService.initSession(body);
-        try {
-            Response<User> response = call.execute();
-            return response;
+            RequestBody body = RequestBody.create(mediaType, requestBody.toString());
+
+            Request request = new Request.Builder()
+                    .url(nudgeUrl + "users/u/create")
+                    .method("POST", body)
+                    .addHeader("authorization", apiKey)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+
+            okhttp3.Response response = client.newCall(request).execute();
+            String data = response.body().string();
+            System.out.println(data);
+
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+
+                this.token = jsonObject.getJSONObject("data").getString("token");
+                return data;
+            }
+            catch (JSONException e){
+                throw new RuntimeException(e);
+            }
+
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
-
-        return null;
     }
 
-    public Response<ResponseBody> track(User user, String type, Map<String, Object> properties) {
+    public static String track(String type, JSONObject properties) {
         JSONObject requestBody = new JSONObject();
         try {
             requestBody.put("type", type);
             requestBody.put("sessionId", uuid.toString());
+
+
+
             if (properties != null) {
-                for (Map.Entry<String, Object> entry : properties.entrySet()) {
-                    requestBody.put(entry.getKey(), entry.getValue());
+                for (Iterator<String> it = properties.keys(); it.hasNext(); ) {
+                    String entry = it.next();
+                    requestBody.put(entry, properties.get(entry));
                 }
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        RequestBody body = RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), requestBody.toString());
-
-        Call<ResponseBody> call = apiService.track(body);
         try {
-            Response<ResponseBody> response = call.execute();
-            return response;
+
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, requestBody.toString());
+            Request request = new Request.Builder()
+                    .url(nudgeUrl + "/events/e/track")
+                    .method("POST", body)
+                    .addHeader("authorization", token)
+                    .addHeader("Content-Type", "application/json")
+                    .build();
+            okhttp3.Response response = client.newCall(request).execute();
+
+            String data = response.body().string();
+
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+
+                return jsonObject.toString();
+            }
+            catch (JSONException e){
+                throw new RuntimeException(e);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }

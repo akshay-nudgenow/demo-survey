@@ -4,32 +4,15 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application>
+
         <activity
-            android:name=".ui.MoodBoardActivity"
+            android:name=".ThankYouActivity"
             android:exported="false" />
         <activity
-            android:name=".BottomSheetActivity"
+            android:name=".SecondActivity"
             android:exported="false" />
         <activity
-            android:name=".PopupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NudgeActivity"
-            android:exported="false" />
-        <activity
-            android:name=".widgets.CheckBoxWidget"
-            android:exported="false" />
-        <activity
-            android:name=".screens.StartScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".screens.FormPageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".screens.MidScreenActivity"
-            android:exported="false" />
-        <activity
-            android:name=".screens.EndScreenActivity"
+            android:name=".FirstActivity"
             android:exported="false" />
     </application>
 

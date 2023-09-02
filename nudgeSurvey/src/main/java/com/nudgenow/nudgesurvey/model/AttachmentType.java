@@ -1,4 +1,4 @@
-package com.nudgenow.nudgesurvey.models;
+package com.nudgenow.nudgesurvey.model;
 
 import com.google.gson.annotations.SerializedName;
 

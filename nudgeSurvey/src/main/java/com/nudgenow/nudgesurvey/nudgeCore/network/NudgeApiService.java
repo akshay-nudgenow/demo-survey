@@ -16,7 +16,7 @@ import retrofit2.http.Path;
 public interface NudgeApiService {
 
 
-/* initSession: Sends a POST request to create a user session, expecting a User object in response.*/
+    /* initSession: Sends a POST request to create a user session, expecting a User object in response.*/
     @Headers({
             "Content-Type: application/json; charset=UTF-8"})
 
@@ -32,8 +32,8 @@ public interface NudgeApiService {
 
 
 
-/*getRewardsData: Sends a GET request to fetch rewards data for a specific user ID,
-   expecting a User.Data object in response.*/
+    /*getRewardsData: Sends a GET request to fetch rewards data for a specific user ID,
+       expecting a User.Data object in response.*/
     @GET("users/u/get/{id}")
     Call<User.Data> getRewardsData(@Path("id") String id);
 

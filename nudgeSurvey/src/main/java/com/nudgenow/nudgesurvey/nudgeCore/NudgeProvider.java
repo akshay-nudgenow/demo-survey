@@ -12,20 +12,29 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
+import java.util.Map;
+
 public class NudgeProvider extends AppCompatActivity {
     private FrameLayout container;
-    private Nudge nudgeInstance;
+    public static Nudge nudge;
     private List<NudgeUi> plugins;
     private NudgeCallback log;
+
+    NudgeProvider(Nudge nudge, List<NudgeUi> plugins) {
+        NudgeProvider.nudge = nudge;
+        this.plugins = plugins;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nudge_provider);
 
-        container = findViewById(R.id.container); // Replace with your layout's container ID
+        container = findViewById(R.id.container);
 
-        nudgeInstance = new Nudge("API Key");
+        nudge = new Nudge("API Key");
         plugins = new ArrayList<>();
 
         /*
@@ -39,10 +48,10 @@ public class NudgeProvider extends AppCompatActivity {
 
             }
         };
-        
+
          */
 
-        nudgeInstance.setTrackCall(new Nudge.CallbackInterface() {
+        nudge.setTrackCall(new Nudge.CallbackInterface() {
             @Override
             public void onTrackDataReceived(Object trackData) {
                 trackcalled((Map<String, Object>) trackData);
@@ -64,7 +73,7 @@ public class NudgeProvider extends AppCompatActivity {
             NudgeUi nudgeUi = gameKeyUiMapper.get(gameKey);
             if (nudgeUi != null) {
                 try {
-                    nudgeUi.copyWith((String) campaign.get("gameSettingsId"), nudgeInstance.getToken())
+                    nudgeUi.copyWith((String) campaign.get("gameSettingsId"), nudge.getToken())
                             .trigger(this, (String) campaign.get("userStatId"), (String) campaign.get("position"));
                 } catch (Exception e) {
                     if (log != null) {
